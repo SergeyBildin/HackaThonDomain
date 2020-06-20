@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        {% block content %}
+    <div class="row justify-content-center">
+        <div class="col-4 mt-4">
+            <h1>Регистрация</h1>
+            <form id="add_form" method="POST">
+                {% csrf_token %}
+                {{form}}
+                <button  form = "add_form" type="submit" class="btn btn-primary mt-4" >Зарегистрироваться</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+    </div>
+</body>
+</html>

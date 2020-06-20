@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os, sys
 import posixpath
-import random
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -31,19 +30,20 @@ SECRET_KEY = '=1eb_mzge@()yu#s-z++#8j_z9=jg(w!7w!3iyeo2xibpqplv8'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+AUTH_USER_MODEL = 'customauth.Account'
 
 # Application definition
 
-INSTALLED_APPS = [
+INSTALLED_APPS = [    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'customauth'
+    
 ]
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -112,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+#AUTHENTICATION_BACKENDS = ['authentication.backends','django.contrib.auth.backends.ModelBackend']
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
