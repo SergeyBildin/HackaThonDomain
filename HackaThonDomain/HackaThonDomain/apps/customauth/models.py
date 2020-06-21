@@ -1,19 +1,8 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
-from django.db.models.fields import EmailField
-from .validate import validate_email
-from .forms import MyEmailField
 
-class CustomEmailField(EmailField):
-    default_validators = [validate_email]
 
-    def formfield(self, **kwargs):
-        # As with CharField, this will cause email validation to be performed
-        # twice.
-        return super().formfield(**{
-            'form_class': MyEmailField,
-            **kwargs,
-        })
+
 
 class AccountManager(BaseUserManager):
     def create_user(self, email, password=None):
@@ -35,7 +24,7 @@ class AccountManager(BaseUserManager):
         return user
 
 class Account(AbstractBaseUser):
-    email = models.EmailField(verbose_name='email',max_length=100,unique=True)
+    email = models.CharField(verbose_name='email',max_length=100,unique=True)
     date_joined = models.DateField(auto_now_add=True)
     last_login = models.DateTimeField(verbose_name='last login', auto_now=True)
     is_admin = models.BooleanField(default=False)

@@ -1,15 +1,23 @@
 from django import forms
-from .validate import validate_email
-from django.forms.fields import EmailField
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .models import Account
 
 
-class MyEmailField(EmailField):
-    default_validators = [validate_email]
 
 class RegisterForm(UserCreationForm):
     class Meta:
         model = Account
         fields = ('email',)
-        fields_classes = { 'email' : MyEmailField }
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs['class'] = "form-control"
+
+class AuthForm(AuthenticationForm,forms.ModelForm):
+    class Meta:
+        model = Account
+        exclude = ('email','is_staff','is_active','is_superuser', 'is_admin')
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs['class'] = "form-control"

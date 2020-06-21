@@ -29,10 +29,8 @@ def checkEmail(email):
         return False
     try:
         #ignore sertificates and warnings
-        requests.packages.urllib3.disable_warnings()
         #get mx label of domain
         valid_TLD_flag = checkTLD(domain_name.split('.')[-1])
-        #valid_domain_flag = requests.get('https://'+domain_name, allow_redirects=False, verify=False).status_code < 400
         valid_mx_flag = dns.resolver.resolve(".".join(domain_name.split('.')[-2:]), 'MX') 
         return  valid_mx_flag and valid_TLD_flag
     except:
